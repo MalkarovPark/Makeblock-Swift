@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		882ADBB11D0D362800A5BA86 /* Makeblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882ADBB01D0D362800A5BA86 /* Makeblock.framework */; };
-		882ADBB21D0D362800A5BA86 /* Makeblock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 882ADBB01D0D362800A5BA86 /* Makeblock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		625FDBE829FAAD60000E406F /* Makeblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 625FDBE729FAAD60000E406F /* Makeblock.framework */; };
+		625FDBE929FAAD60000E406F /* Makeblock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 625FDBE729FAAD60000E406F /* Makeblock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8866909E1D06792F005169B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866909D1D06792F005169B6 /* AppDelegate.swift */; };
 		886690A01D06792F005169B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866909F1D06792F005169B6 /* ViewController.swift */; };
 		886690A31D06792F005169B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886690A11D06792F005169B6 /* Main.storyboard */; };
@@ -17,13 +17,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		882ADBB31D0D362800A5BA86 /* Embed Frameworks */ = {
+		625FDBEA29FAAD61000E406F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				882ADBB21D0D362800A5BA86 /* Makeblock.framework in Embed Frameworks */,
+				625FDBE929FAAD60000E406F /* Makeblock.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		625FDBE429FAA8D6000E406F /* DemoProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoProject.entitlements; sourceTree = "<group>"; };
+		625FDBE729FAAD60000E406F /* Makeblock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Makeblock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		882ADBB01D0D362800A5BA86 /* Makeblock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Makeblock.framework; path = "/Users/wangyu/Library/Developer/Xcode/DerivedData/Makeblock-fduvupqrgwmiupdtusnypdvolvop/Build/Products/Debug-iphoneos/Makeblock.framework"; sourceTree = "<absolute>"; };
 		8866909A1D06792E005169B6 /* DemoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8866909D1D06792F005169B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,19 +48,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				882ADBB11D0D362800A5BA86 /* Makeblock.framework in Frameworks */,
+				625FDBE829FAAD60000E406F /* Makeblock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		625FDBE629FAAD60000E406F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				625FDBE729FAAD60000E406F /* Makeblock.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		886690911D06792E005169B6 = {
 			isa = PBXGroup;
 			children = (
 				882ADBB01D0D362800A5BA86 /* Makeblock.framework */,
 				8866909C1D06792F005169B6 /* DemoProject */,
 				8866909B1D06792E005169B6 /* Products */,
+				625FDBE629FAAD60000E406F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +84,7 @@
 		8866909C1D06792F005169B6 /* DemoProject */ = {
 			isa = PBXGroup;
 			children = (
+				625FDBE429FAA8D6000E406F /* DemoProject.entitlements */,
 				8866909D1D06792F005169B6 /* AppDelegate.swift */,
 				8866909F1D06792F005169B6 /* ViewController.swift */,
 				886690A11D06792F005169B6 /* Main.storyboard */,
@@ -93,7 +105,7 @@
 				886690961D06792E005169B6 /* Sources */,
 				886690971D06792E005169B6 /* Frameworks */,
 				886690981D06792E005169B6 /* Resources */,
-				882ADBB31D0D362800A5BA86 /* Embed Frameworks */,
+				625FDBEA29FAAD61000E406F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -272,6 +284,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DemoProject/DemoProject.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = 6T64H9365J;
 				INFOPLIST_FILE = DemoProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -280,7 +295,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.makeblock.DemoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -288,6 +307,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DemoProject/DemoProject.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = 6T64H9365J;
 				INFOPLIST_FILE = DemoProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -296,7 +318,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.makeblock.DemoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
