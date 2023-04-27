@@ -15,7 +15,7 @@ public class SensorValue {
     
     public var intValue: Int {
         get {
-            if let intVal: Int = numberValue?.integerValue {
+            if let intVal: Int = numberValue?.intValue {
                 return intVal
             }
             else{
@@ -36,11 +36,11 @@ public class SensorValue {
     }
     
     init(intValue: Int) {
-        numberValue = intValue
+        numberValue = (intValue) as NSNumber
     }
     
     init(floatValue: Float) {
-        numberValue = floatValue
+        numberValue = (floatValue) as NSNumber
     }
     
     init(string: String){
@@ -54,7 +54,7 @@ public class ReadSensorRequest {
     let onRead: (SensorValue) -> Void
     var requestDate: NSDate
     
-    init(callback: (SensorValue) -> Void) {
+    init(callback: @escaping (SensorValue) -> Void) {
         onRead = callback
         requestDate = NSDate()
     }
@@ -136,7 +136,7 @@ public class MakeblockRobot {
     /// for writing commands, will receive FF 55 0D 0A, and since 0x0a is not a data type,
     /// this will result in a parse failure and be ignored.
     func onReceive(data: NSData) {
-        var receivedBytes = [UInt8](count: data.length, repeatedValue: 0)
+        var receivedBytes = [UInt8](repeating: 0, count: data.length)
         data.getBytes(&receivedBytes, length: data.length)
         for byte in receivedBytes {
             switch receiveSMStatus {
@@ -224,11 +224,11 @@ public class MakeblockRobot {
                         request.onRead(SensorValue(intValue: Int(value)))
                     case .String:
                         let resultString = NSString(bytes: receivedPayloads, length: receivedPayloads.count,
-                                                    encoding: NSUTF8StringEncoding) as! String
+                                                    encoding: NSUTF8StringEncoding)! as String
                         request.onRead(SensorValue(string: resultString))
                     }
                     // the reading request is fulfilled. Remove from the pending request list.
-                    readSensorRequests.removeValueForKey(receiveIndex)
+                    readSensorRequests.removeValue(forKey: receiveIndex)
                 }
                 receiveSMStatus = .PrefixA
             }
@@ -264,10 +264,8 @@ public class MakeblockRobot {
             readSensorRequests[index] = ReadSensorRequest(callback: cb)
         }
         var finishedBytes: [UInt8] = [prefixA, prefixB, messageLength, index, readWriteByte, deviceID.rawValue]
-        finishedBytes.appendContentsOf(arrayOfBytes)
-        connection.send(NSData(bytes: finishedBytes, length: finishedBytes.count))
+        finishedBytes.append(contentsOf: arrayOfBytes)
+        connection.send(data: NSData(bytes: finishedBytes, length: finishedBytes.count))
         return index
     }
-    
-    
 }

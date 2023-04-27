@@ -55,9 +55,9 @@ public class MBot: MakeblockRobot {
      - parameter rightMotor: speed of the right motor, -255~255
      */
     public func setMotors(leftMotor: Int, rightMotor: Int) {
-        let (leftLow, leftHigh) = IntToUInt8Bytes(leftMotor)
-        let (rightLow, rightHigh) = IntToUInt8Bytes(rightMotor)
-        sendMessage(.DCMotorMove, arrayOfBytes: [leftLow, leftHigh, rightLow, rightHigh])
+        let (leftLow, leftHigh) = IntToUInt8Bytes(value: leftMotor)
+        let (rightLow, rightHigh) = IntToUInt8Bytes(value: rightMotor)
+        sendMessage(deviceID: .DCMotorMove, arrayOfBytes: [leftLow, leftHigh, rightLow, rightHigh])
         
     }
     
@@ -68,8 +68,8 @@ public class MBot: MakeblockRobot {
      - parameter speed: the speed of the motor -255~255
      */
     public func setMotor(port: MBotPorts, speed: Int){
-        let (low, high) = IntToUInt8Bytes(speed)
-        sendMessage(.DCMotor, arrayOfBytes: [port.rawValue, low, high])
+        let (low, high) = IntToUInt8Bytes(value: speed)
+        sendMessage(deviceID: .DCMotor, arrayOfBytes: [port.rawValue, low, high])
     }
     
     /**
@@ -78,7 +78,7 @@ public class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     public func moveForward(speed: Int){
-        setMotors(-speed, rightMotor: speed)
+        setMotors(leftMotor: -speed, rightMotor: speed)
     }
     
     /**
@@ -87,7 +87,7 @@ public class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     public func moveBackward(speed: Int){
-        setMotors(speed, rightMotor: -speed)
+        setMotors(leftMotor: speed, rightMotor: -speed)
     }
     
     /**
@@ -96,7 +96,7 @@ public class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     public func turnLeft(speed: Int){
-        setMotors(speed, rightMotor: speed)
+        setMotors(leftMotor: speed, rightMotor: speed)
     }
     
     /**
@@ -105,14 +105,14 @@ public class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     public func turnRight(speed: Int){
-        setMotors(-speed, rightMotor: -speed)
+        setMotors(leftMotor: -speed, rightMotor: -speed)
     }
     
     /**
      Tell the mBot to stop moving
      */
     public func stopMoving(){
-        setMotors(0, rightMotor: 0)
+        setMotors(leftMotor: 0, rightMotor: 0)
     }
     
     /**
@@ -124,7 +124,7 @@ public class MBot: MakeblockRobot {
      - parameter blue:     blue value (0~255)
      */
     public func setRGBLED(position: RGBLEDPosition, red: Int, green: Int, blue: Int){
-        sendMessage(.RGBLED, arrayOfBytes: [MBotPorts.RGBLED.rawValue, 0x02, position.rawValue,
+        sendMessage(deviceID: .RGBLED, arrayOfBytes: [MBotPorts.RGBLED.rawValue, 0x02, position.rawValue,
             UInt8(red), UInt8(green), UInt8(blue)])
     }
     
@@ -135,9 +135,9 @@ public class MBot: MakeblockRobot {
      - parameter duration: duration. Could be .full, .half, .quarter, .eighth, or .sixteenth
      */
     public func setBuzzer(pitch: MusicNotePitch, duration: MusicNoteDuration) {
-        let (pitchLow, pitchHigh) = IntToUInt8Bytes(pitch.rawValue)
-        let (durationLow, durationHigh) = IntToUInt8Bytes(duration.rawValue)
-        sendMessage(.Buzzer, arrayOfBytes: [pitchLow, pitchHigh, durationLow, durationHigh])
+        let (pitchLow, pitchHigh) = IntToUInt8Bytes(value: pitch.rawValue)
+        let (durationLow, durationHigh) = IntToUInt8Bytes(value: duration.rawValue)
+        sendMessage(deviceID: .Buzzer, arrayOfBytes: [pitchLow, pitchHigh, durationLow, durationHigh])
     }
     
     /**
@@ -152,8 +152,8 @@ public class MBot: MakeblockRobot {
      - parameter port:     which port the sensor is connected to. By default .Port3
      - parameter callback: a block of code executed after we have a value. Receive a Float as the argument.
      */
-    public func getUltrasonicSensorValue(port: MBotPorts = .Port3, callback: ((Float) -> Void)) {
-        sendMessage(.UltrasonicSensor, arrayOfBytes: [port.rawValue]) { value in
+    public func getUltrasonicSensorValue(port: MBotPorts = .Port3, callback: @escaping ((Float) -> Void)) {
+        sendMessage(deviceID: .UltrasonicSensor, arrayOfBytes: [port.rawValue]) { value in
             callback(value.floatValue)
         }
     }
@@ -170,8 +170,8 @@ public class MBot: MakeblockRobot {
      - parameter port:     which port the sensor is connected to. By default .LightnessSensor (on board sensor)
      - parameter callback: a block of code executed after we have a value. Receive a Float as the argument.
      */
-    public func getLightnessSensorValue(port: MBotPorts = .LightnessSensor, callback: ((Float) -> Void)) {
-        sendMessage(.LightnessSensor, arrayOfBytes: [port.rawValue]) { value in
+    public func getLightnessSensorValue(port: MBotPorts = .LightnessSensor, callback: @escaping ((Float) -> Void)) {
+        sendMessage(deviceID: .LightnessSensor, arrayOfBytes: [port.rawValue]) { value in
             callback(value.floatValue)
         }
     }
@@ -190,8 +190,8 @@ public class MBot: MakeblockRobot {
      - parameter port:     which port the sensor is connected to. By default .Port2 (on board sensor)
      - parameter callback: a block of code executed after we have a value. Receive a LineFollowerSensorStatus as the argument.
      */
-    public func getLinefollowerSensorValue(port: MBotPorts = .Port2, callback:((LineFollowerSensorStatus) -> Void)) {
-        sendMessage(.LineFollowerSensor, arrayOfBytes: [port.rawValue]) { value in
+    public func getLinefollowerSensorValue(port: MBotPorts = .Port2, callback: @escaping ((LineFollowerSensorStatus) -> Void)) {
+        sendMessage(deviceID: .LineFollowerSensor, arrayOfBytes: [port.rawValue]) { value in
             callback(LineFollowerSensorStatus.init(rawValue: value.floatValue)!)
         }
     }
